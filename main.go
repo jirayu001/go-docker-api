@@ -9,8 +9,6 @@ import (
 )
 
 func main() {
-
-	//test
 	r := gin.Default()
 
 	r.GET("/healthcheck", handler.HealthCheckHandler)
@@ -24,5 +22,5 @@ func main() {
 		}
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	(r.Run(":8080"))
+	r.Run(":8080")
 }
