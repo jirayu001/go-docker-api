@@ -1,10 +1,7 @@
 package model
 
 type DataUsers struct {
-	LineToken    string `json:"lineToken"`
-	DisplayName  string `json:"displayName"`
-	Email        string `json:"email"`
-	DisplayImage string `json:"displayImage"`
+	Token string `json:"token" binding:"required`
 }
 type Result struct {
 	Status int `json:"status"`

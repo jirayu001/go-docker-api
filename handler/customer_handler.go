@@ -19,7 +19,6 @@ func (h *CustomerHandler) Post(c *gin.Context) {
 
 	jsonData, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
-		// Handle error
 		fmt.Println(err.Error())
 	} else {
 		err := json.Unmarshal(jsonData, &u)
@@ -30,15 +29,14 @@ func (h *CustomerHandler) Post(c *gin.Context) {
 			r.Message = "กรุณากรอกข้อมูลให้ครบ"
 			c.JSON(http.StatusInternalServerError, r)
 		} else {
-			//c.BindJSON(&u)
-			if u.DisplayImage == "" || u.DisplayName == "" || u.Email == "" || u.LineToken == "" {
+			if u.Token == "" {
 				r.Status = http.StatusInternalServerError
 				r.Data.LiffURL = "null"
 				r.Message = "กรุณากรอกข้อมูลให้ครบ"
 				c.JSON(http.StatusInternalServerError, r)
 			} else {
 				r.Status = http.StatusOK
-				r.Data.LiffURL = ""
+				r.Data.LiffURL = "https://f0ac1522c75e.ngrok.io"
 				r.Message = ""
 				c.JSON(http.StatusOK, r)
 			}
