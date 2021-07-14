@@ -1,4 +1,4 @@
-package handler
+package controller
 
 import (
 	"encoding/json"
@@ -10,14 +10,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CustomerHandler struct {
-}
-
-func (h *CustomerHandler) Post(c *gin.Context) {
+// ShowResult godoc
+// @Summary Show an result
+// @Description show by json result
+// @Tags result
+// @Accept  json
+// @Produce  json
+// @Param account body model.DataUsers true "Show result"
+// @Success 200 {object} model.Result
+// @Failure 500 {object} model.Result
+// @Router /auth/loginWithCoulacare [post]
+func (c *Controller) ShowResult(ctx *gin.Context) {
 	var u model.DataUsers
 	var r model.Result
 
-	jsonData, err := ioutil.ReadAll(c.Request.Body)
+	jsonData, err := ioutil.ReadAll(ctx.Request.Body)
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
@@ -27,18 +34,18 @@ func (h *CustomerHandler) Post(c *gin.Context) {
 			r.Status = http.StatusInternalServerError
 			r.Data.LiffURL = "null"
 			r.Message = "กรุณากรอกข้อมูลให้ครบ"
-			c.JSON(http.StatusInternalServerError, r)
+			ctx.JSON(http.StatusInternalServerError, r)
 		} else {
 			if u.Token == "" {
 				r.Status = http.StatusInternalServerError
 				r.Data.LiffURL = "null"
 				r.Message = "กรุณากรอกข้อมูลให้ครบ"
-				c.JSON(http.StatusInternalServerError, r)
+				ctx.JSON(http.StatusInternalServerError, r)
 			} else {
 				r.Status = http.StatusOK
 				r.Data.LiffURL = "https://f0ac1522c75e.ngrok.io"
 				r.Message = ""
-				c.JSON(http.StatusOK, r)
+				ctx.JSON(http.StatusOK, r)
 			}
 		}
 	}
