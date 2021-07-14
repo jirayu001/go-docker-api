@@ -1,4 +1,52 @@
+definitions:
+  model.DataUsers:
+    properties:
+      token:
+        example: test
+        type: string
+    type: object
+  model.Result:
+    properties:
+      data:
+        properties:
+          liffURL:
+            example: https://f0ac1522c75e.ngrok.io
+            type: string
+        type: object
+      message:
+        example: กรุณากรอกข้อมูลให้ครบ
+        type: string
+      status:
+        example: 400
+        type: integer
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /auth/loginWithCoulacare:
+    post:
+      consumes:
+      - application/json
+      description: show by json result
+      parameters:
+      - description: Show result
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/model.DataUsers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Result'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Result'
+      summary: Show an result
+      tags:
+      - result
 swagger: "2.0"

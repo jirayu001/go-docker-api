@@ -3,5 +3,79 @@
     "info": {
         "contact": {}
     },
-    "paths": {}
+    "paths": {
+        "/auth/loginWithCoulacare": {
+            "post": {
+                "description": "show by json result",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "result"
+                ],
+                "summary": "Show an result",
+                "parameters": [
+                    {
+                        "description": "Show result",
+                        "name": "account",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.DataUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.DataUsers": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "example": "test"
+                }
+            }
+        },
+        "model.Result": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "liffURL": {
+                            "type": "string",
+                            "example": "https://f0ac1522c75e.ngrok.io"
+                        }
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "กรุณากรอกข้อมูลให้ครบ"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 400
+                }
+            }
+        }
+    }
 }

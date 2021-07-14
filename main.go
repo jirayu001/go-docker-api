@@ -1,26 +1,26 @@
 package main
 
 import (
+	"github.com/api-server/controller"
 	_ "github.com/api-server/docs"
-	"github.com/api-server/handler"
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func main() {
+
 	r := gin.Default()
 
-	r.GET("/healthcheck", handler.HealthCheckHandler)
+	c := controller.NewController()
 
 	v1 := r.Group("/auth")
 	{
-		customers := v1.Group("/loginWithCoulacare")
-		{
-			customersHandler := handler.CustomerHandler{}
-			customers.POST("", customersHandler.Post)
-		}
+		v1.POST("/loginWithCoulacare", c.ShowResult)
 	}
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.Run(":8080")
+
 }
